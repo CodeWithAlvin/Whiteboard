@@ -44,12 +44,18 @@ def black():
 	colour="black"
 			  	       	     	
 #=======line creating=========#
+#x0,y0=0,0
 def paint(event, selected_colour):
-    '''Draws a line following the user mouse cursor'''        
+    '''Draws a line following the user mouse cursor'''
+    global x0,y0
     x1,y1=event.x,event.y
-    x2, y2 = event.x-1, event.y
-    canvas.create_line(x1,y1,x2,y2, fill=selected_colour, width=s1.get(),capstyle=ROUND,smooth=True)
-    
+    if x0!=0 and y0!=0:
+    	canvas.create_line(x0,y0,x1,y1, fill=selected_colour, width=s1.get(),capstyle=ROUND,smooth=True)
+    x0,y0=x1,y1
+
+def setZero():
+	global x0,y0
+	x0,y0=0,0
 
 # basic size and name of GUI
 can_width=1040
@@ -64,9 +70,10 @@ s1.pack(anchor="n",ipadx=840,side="top")
 
 
 #========creating Canvas===========#
-canvas = Canvas(root,width=can_width,height=can_height, background='black')
+canvas = Canvas(root,width=can_width,height=can_height, background='black',cursor="dot")
 canvas.pack(fill="both")
-canvas.bind("<Motion>", lambda event: paint(event,selected_colour=colour))
+canvas.bind("<B1-Motion>", lambda event: paint(event,selected_colour=colour))
+canvas.bind("<ButtonRelease-1>",lambda event: setZero())
 
 #=========creating main menu=========#
 mainMenu=Menu(root)
