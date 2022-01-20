@@ -11,24 +11,24 @@ colour="blue"
 
 #========Theme Bacground========#
 def changeBg():
-	   (triple, hexstr) = askcolor()
-	   if hexstr:
-	   	canvas.config(background=hexstr)
+	(triple, hexstr) = askcolor()
+	if hexstr:
+		canvas.config(background=hexstr)
 
 def Light():
     root.title("Alvin's Whiteboard")
     canvas.config(background="white")
         
 def Dark():
-	  root.title("Alvin's blackboard")
-	  canvas.config(background="black")
+	root.title("Alvin's blackboard")
+	canvas.config(background="black")
 
 #========fg colour===========#
 def changeFg():
-	  global colour
-	  (triple, hexstr) = askcolor()
-	  if hexstr:
-	   	colour=hexstr
+	global colour
+	(triple, hexstr) = askcolor()
+	if hexstr:
+		colour=hexstr
 
 def blue():
 	global colour
@@ -46,31 +46,31 @@ def black():
 #=======line creating=========#
 #x0,y0=0,0
 def paint(event, selected_colour):
-    '''Draws a line following the user mouse cursor'''
-    global x0,y0
-    x1,y1=event.x,event.y
-    if x0!=0 and y0!=0:
-    	canvas.create_line(x0,y0,x1,y1, fill=selected_colour, width=s1.get(),capstyle=ROUND,smooth=True)
-    x0,y0=x1,y1
+	'''Draws a line following the user mouse cursor'''
+	global x0,y0
+	x1,y1=event.x,event.y
+	if x0!=0 and y0!=0:
+		canvas.create_line(x0,y0,x1,y1, fill=selected_colour, width=s1.get(),capstyle=ROUND,smooth=True)
+	x0,y0=x1,y1
 
 def setZero():
 	global x0,y0
 	x0,y0=0,0
 
 # basic size and name of GUI
-can_width=1040
-can_height=2160
-root.geometry(f"{can_width}x{can_height}")
+canvas_width=1040
+canvas_height=2160
+root.geometry(f"{canvas_width}x{canvas_height}")
 root.minsize(width=500,height=500)
 root.title("Alvin's board")
 
 #======width  scale=====#
-s1=Scale(root,from_=8,to=25,orient=HORIZONTAL)
+s1=Scale(root,from_=1,to=25,orient=HORIZONTAL)
 s1.pack(anchor="n",ipadx=840,side="top")
 
 
 #========creating Canvas===========#
-canvas = Canvas(root,width=can_width,height=can_height, background='black',cursor="dot")
+canvas = Canvas(root,width=canvas_width,height=canvas_height, background='black',cursor="dot")
 canvas.pack(fill="both")
 canvas.bind("<B1-Motion>", lambda event: paint(event,selected_colour=colour))
 canvas.bind("<ButtonRelease-1>",lambda event: setZero())
